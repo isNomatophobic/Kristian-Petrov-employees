@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import "./App.css";
 import { parse } from "papaparse";
-import { Table, CSVData, TableProps } from "./components";
+import { Table, CSVData, TableProps, Socials } from "./components";
 import dayjs from "dayjs";
 
 const isCSVDateNull = (date: string) => !date || date === "NULL";
@@ -41,10 +41,14 @@ function App() {
               return b.daysBetween - a.daysBetween;
             });
           const projectsId = new Set(data.map(({ ProjectID }) => ProjectID));
-          const finalData = new Array(...projectsId).map((id) => {
+
+          const finalData = new Array(...projectsId).flatMap((id) => {
             const employees = mutatedData.filter(
-              ({ ProjectID }) => ProjectID !== id
+              ({ ProjectID }) => ProjectID === id
             );
+
+            if (employees.length < 2) return [];
+
             return {
               empID1: employees[0].EmpID,
               empID2: employees[1].EmpID,
@@ -63,10 +67,11 @@ function App() {
     });
   };
   return (
-    <div className="wrapper">
+    <div id="main" className="wrapper">
       <input type="file" name="file" accept=".csv" onChange={changeHandler} />
       <Table data={tableData} />
-      {error ? <span className="error">{error}</span> : null}
+      {error ? <span className="error">Error: {error}</span> : null}
+      <Socials />
     </div>
   );
 }
