@@ -25,13 +25,14 @@ export interface TableProps {
   data: TableData[];
 }
 const Table = ({ data }: TableProps) => {
+  console.log(data);
   if (!data.length) return null;
 
   return (
     <div id="table-wrapper" className="table-wrapper">
       <div className="table-row">
         {Object.keys(headers).map((key) => (
-          <div className="table-cell">{headers[key]}</div>
+          <div className="table-cell">{headers[key as keyof TableData]}</div>
         ))}
       </div>
       {data.map((row) => {
