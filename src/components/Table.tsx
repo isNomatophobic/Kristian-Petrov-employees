@@ -6,14 +6,12 @@ export type Data = {
 };
 export type CSVData = Data[];
 type TableData = {
-  empID1: Data["EmpID"];
-  empID2: Data["EmpID"];
   projectID: Data["ProjectID"];
   totalDays: number;
 };
 
 const headers: {
-  [key in keyof TableData]?: string;
+  [key in keyof TableData | keyof Omit<TableProps, "data">]?: string;
 } = {
   empID1: "Employee ID #1",
   empID2: "Employee ID #2",
@@ -23,9 +21,11 @@ const headers: {
 
 export interface TableProps {
   data: TableData[];
+  empID1?: Data["EmpID"];
+  empID2?: Data["EmpID"];
 }
-const Table = ({ data }: TableProps) => {
-  if (!data.length) return null;
+const Table = ({ data, empID1, empID2 }: TableProps) => {
+  if (!data.length || !empID1 || !empID2) return null;
 
   return (
     <div id="table-wrapper" className="table-wrapper">
@@ -42,6 +42,12 @@ const Table = ({ data }: TableProps) => {
             className={`table-row ${rowI % 2 == 0 ? "" : "row-grey"}`}
             key={`row-${rowI}`}
           >
+            <div className="table-cell" key={`row-${rowI}-cell-emp1`}>
+              {empID1}
+            </div>
+            <div className="table-cell" key={`row-${rowI}-cell-emp2`}>
+              {empID2}
+            </div>
             {Object.values(row).map((cell, i) => (
               <div className="table-cell" key={`row-${rowI}-cell-${i}`}>
                 {cell}

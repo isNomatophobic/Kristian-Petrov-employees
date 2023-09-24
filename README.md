@@ -1,27 +1,22 @@
-# React + TypeScript + Vite
+# Pair of employees who have worked together
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Create an application that identifies the pair of employees who have worked
+together on common projects for the longest period of time.
+Input data:
+A CSV file with data in the following format:
+EmpID, ProjectID, DateFrom, DateTo
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
+Sample data:
 
 ```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+143, 12, 2013-11-01, 2014-01-05
+218, 10, 2012-05-16, NULL
+143, 10, 2009-01-01, 2011-04-27
+...
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Sample output:
+
+```js
+143, 218, 8;
+```
